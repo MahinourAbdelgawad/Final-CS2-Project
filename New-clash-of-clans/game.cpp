@@ -13,13 +13,13 @@ Game::Game(QWidget *parent) : QWidget(parent)
     view = new QGraphicsView(scene);
     view->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     money = new playerMoney;
-    // shopWindow = new shop(this);
     shopWindow = new Shop1(this, money->getCurrentMoney());
     layout->deleteLater();
 
     setLayout(layout);
+
     //setting background
-    QPixmap backgroundPixmap(":/images/Background.png"); // background image empty field
+    QPixmap backgroundPixmap(":/images/Background.png"); //background image is empty field
     if (!backgroundPixmap.isNull())
     {
         view->setBackgroundBrush(backgroundPixmap);
@@ -69,7 +69,7 @@ Game::Game(QWidget *parent) : QWidget(parent)
     healthBar->hide();
     healthLabel->hide();
 
-    startLevel(); //sets scene and view and clan design and timertext
+    startLevel(); //sets scene and view and clan design
 
     //-----------------------------------------------//
 
@@ -84,8 +84,10 @@ Game::Game(QWidget *parent) : QWidget(parent)
     timerText->setPos(0,0);
     scene->addItem(timerText);
     timerText->hide();
+
+    //Money will increase when player wins a level
     moneyupdated=money->getCurrentMoney();
-    //MoneyBar will increase by 5 after killing one troop and increase by 20 when a level is completed
+
     moneyBar= new QProgressBar(this);
     moneyBar->setTextVisible(false);
     moneyBar->setGeometry(12,52,60,20);
@@ -109,38 +111,39 @@ Game::Game(QWidget *parent) : QWidget(parent)
     bulletSoundEffect->setSource(QUrl("qrc:/sounds/bullet_sound.wav"));
     bulletSoundEffect->setVolume(50);
 
+    sounds = new Audio;
+
 }
 
-int Game::townhallHealth=1000;
-int Game::moneyupdated=0;
+int Game::townhallHealth = 1000;
+int Game::moneyupdated = 0;
 
 void Game::updateMoney(int newMoney)
 {
-    qDebug()<<"Money Updated"<<moneyupdated;
-   money->setMoney(moneyupdated);
-   moneyupdated=money->getCurrentMoney()-newMoney;
-    moneyBar->setValue(money->getCurrentMoney()-newMoney);
-    moneyLabel->setText(QString::number(money->getCurrentMoney()-newMoney));
-    money->setMoney(money->getCurrentMoney()-newMoney);
+    qDebug()<<"Money Updated"<< moneyupdated;
+    money->setMoney(moneyupdated);
+    moneyupdated=money->getCurrentMoney() - newMoney;
+    moneyBar->setValue(money->getCurrentMoney() - newMoney);
+    moneyLabel->setText(QString::number(money->getCurrentMoney() - newMoney));
+    money->setMoney(money->getCurrentMoney() - newMoney);
 
-    qDebug()<<"Money"<<money->getCurrentMoney();
-    qDebug()<<"NewMoney"<<newMoney;
-
+    qDebug()<<"Money"<< money->getCurrentMoney();
+    qDebug()<<"NewMoney"<< newMoney;
 }
 
 void Game::updateimagehealth(QString type, QPixmap image, int health2)
 {
 
     // imageFence=image;
-    if(type=="Fence"){
+    if(type == "Fence"){
         imageFence=image;
     }
-    else if( type== "Cannon"){
+    else if(type == "Cannon"){
         imageCannon=image;
     }
-    else if(type=="Townhall"){
-        imageTownhall=image;
-        townhallHealth=health2;
+    else if(type == "Townhall"){
+        imageTownhall = image;
+        townhallHealth = health2;
     }
 
 }
@@ -172,18 +175,8 @@ void Game::startLevel()
     quitButton->setEnabled(true);
     helpButton->setEnabled(true);
 
-    // startBtn->setPos(240,400);
-    // shopBtn->setPos(240,450);
-    // startButton->setText("Start Level " + QString::number(level->currLevel)); //to update start button text
-    // startButton->setEnabled(true);
-    // startButton->show();
-
-    // shopButton->setEnabled(true);
-    // shopButton->show();
-
     gameStarted = false;
     townHallDestroyed = false;
-    // clanBreached = false;
     gamePaused = false;
 
     timer = new QTimer(this);
@@ -202,6 +195,7 @@ void Game::startLevel()
 
     scene->setSceneRect(0, 0, clanDesign[0].size() * 50, clanDesign.size() * 50); //set scene and view
     view->setFixedSize(clanDesign[0].size() * 50, clanDesign.size() * 50);
+
     //----------------------------------------------//
 
     startButton->show();
@@ -220,7 +214,7 @@ void Game::displayClanDesign()
     const int castleSize = tileSize;
     const int cannonSize = tileSize;
 
-    qDebug()<<"inside displayClanDesign";
+    qDebug()<< "inside displayClanDesign";
 
     for (int i = 0; i < clanDesign.size(); i++)
     {
@@ -228,7 +222,7 @@ void Game::displayClanDesign()
         {
             int element = clanDesign[i][j]; //element at the current position
 
-            if (element == 2) // castle
+            if (element == 2) // townhall
             {
                 if(!imageTownhall.isNull())
                     townhall->setPix(imageTownhall);
@@ -285,6 +279,7 @@ void Game::handleStartButton()
         startButton->hide();
         shopButton->hide();
         startGame();
+        sounds->buttonClick();
     }
 
 }
@@ -293,11 +288,13 @@ void Game::startGame()
 {
     workerCount = 0;
     killCount = 0;
+
     startButton->hide();
     shopButton->hide();
     soundSettingsButton->hide();
     helpButton->hide();
     quitButton->hide();
+
     healthBar->show();
     healthLabel->show();
     timerText->show();
@@ -308,6 +305,7 @@ void Game::startGame()
     timer->start(1000);
     boosterTimer->start(30000);
     displayClanDesign();
+
     moneyBar->setValue(moneyupdated);
     moneyLabel->setText(QString::number(moneyupdated));
 
@@ -317,37 +315,42 @@ void Game::startGame()
     connect(pause, SIGNAL(clicked()), this, SLOT(handlePauseButton()));
 
     backgroundMusicPlayer.play();
+
+    townhall->townhallHealth->setMaxHealth(townhallHealth);
+    healthBar->setValue(townhallHealth);
+    healthLabel->setText(QString::number(townhallHealth));
+
     if (level->currLevel == 1) {//enemies spawn more frequently as level increases
         spawnTimer->start(4000);
-        townhall->townhallHealth->setMaxHealth(townhallHealth);
-        healthBar->setValue(townhallHealth);
-        healthLabel->setText(QString::number(townhallHealth));
+        // townhall->townhallHealth->setMaxHealth(townhallHealth);
+        // healthBar->setValue(townhallHealth);
+        // healthLabel->setText(QString::number(townhallHealth));
     }
 
     else if (level->currLevel == 2) {
         spawnTimer->start(3000);
-        townhall->townhallHealth->setMaxHealth(townhallHealth);
-        healthBar->setValue(townhallHealth);
-        healthLabel->setText(QString::number(townhallHealth));
+        // townhall->townhallHealth->setMaxHealth(townhallHealth);
+        // healthBar->setValue(townhallHealth);
+        // healthLabel->setText(QString::number(townhallHealth));
     }
 
     else if (level->currLevel == 3) {
         spawnTimer->start(2000);
-        townhall->townhallHealth->setMaxHealth(townhallHealth);
-        healthBar->setValue(townhallHealth);
-        healthLabel->setText(QString::number(townhallHealth));
+        // townhall->townhallHealth->setMaxHealth(townhallHealth);
+        // healthBar->setValue(townhallHealth);
+        // healthLabel->setText(QString::number(townhallHealth));
     }
     else if (level->currLevel == 4) {
         spawnTimer->start(1000);
-        townhall->townhallHealth->setMaxHealth(townhallHealth);
-        healthBar->setValue(townhallHealth);
-        healthLabel->setText(QString::number(townhallHealth));
+        // townhall->townhallHealth->setMaxHealth(townhallHealth);
+        // healthBar->setValue(townhallHealth);
+        // healthLabel->setText(QString::number(townhallHealth));
     }
     else if (level->currLevel == 5) {
         spawnTimer->start(500);
-        townhall->townhallHealth->setMaxHealth(townhallHealth);
-        healthBar->setValue(townhallHealth);
-        healthLabel->setText(QString::number(townhallHealth));
+        // townhall->townhallHealth->setMaxHealth(townhallHealth);
+        // healthBar->setValue(townhallHealth);
+        // healthLabel->setText(QString::number(townhallHealth));
     }
 
 }
@@ -509,15 +512,15 @@ void Game::checkCollisions(Troop* troop)
     {
         if (typeid(*collidingItem) == typeid(Bullet))
         {
-            // qDebug() << cannon->currPower;
+            sounds->enemyHitSound();
 
-            // scene->removeItem(collidingItem);
-            // delete collidingItem;
+            // qDebug() << cannon->currPower;
             troop->troopHealth->reduceHealth(cannon->currPower);
             troop->knockBack(collidingItem->pos().x(), collidingItem->pos().y());
 
             if (troop->troopHealth->getHealth() <= 0)
             {
+
                 // itemsToRemove.append(troop);
                 // qDebug() << cannon->currPower;
                 itemsToRemove.append(collidingItem);
@@ -642,12 +645,6 @@ void Game::checkCollisions(Troop* troop)
                                 workerCount++;
                                 fence->underRepair = true;
                                 // qDebug()<< fence->fenceHealth;
-                                if(worker->backHome)
-                                {
-                                    scene->removeItem(worker);
-                                    delete worker;
-                                    workerCount--;
-                                }
                             }
                         }
 
@@ -680,8 +677,10 @@ void Game::updateTimer()
     currentTime = currentTime.addSecs(1);
     timerText->setPlainText(currentTime.toString("m:ss"));
 
-    if (currentTime.second() == 5 )
+    if (currentTime.minute() == 10 )
     {
+        sounds->winSound();
+
         timer->stop();
         m_timer->stop();
         spawnTimer->stop();
@@ -726,6 +725,7 @@ void Game::updateTimer()
     }
 
     else if(townHallDestroyed == true){
+        sounds->loseSound();
         timer->stop();
         m_timer->stop();
         spawnTimer->stop();
@@ -780,6 +780,7 @@ void Game::mousePressEvent(QMouseEvent *event) //release bullet when player clic
             return;
         }
 
+        sounds->bulletSound();
         // QPointF targetPos = event->pos();
         QPoint targetPos = QCursor::pos();
         qreal dx = targetPos.x() - cannon->pos().x();
@@ -806,11 +807,14 @@ void Game::mousePressEvent(QMouseEvent *event) //release bullet when player clic
 void Game::showShopWindow()
 {
     shopWindow->show();
+    sounds->buttonClick();
 }
 
 
 void Game::handleSoundSettingsButton()
 {
+    sounds->buttonClick();
+
     QDialog* soundSettingsDialog = new QDialog(this);
     soundSettingsDialog->setWindowTitle("Sound Settings");
 
@@ -830,7 +834,7 @@ void Game::handleSoundSettingsButton()
     connect(applyButton, &QPushButton::clicked, soundSettingsDialog, &QDialog::accept);
     connect(volumeSlider, &QSlider::valueChanged, this, [this](int value) {
         qreal volume = qreal(value) / 100.0;
-        audiooutput.setVolume(volume);
+        sounds->setVolumes(volume);
     });
 
     if (soundSettingsDialog->exec() == QDialog::Accepted)
@@ -848,6 +852,8 @@ void Game::handlePauseButton()
 {
     if (!gamePaused)
     {
+        sounds->buttonClick();
+
         qDebug()<< "pause";
         gamePaused = true;
         timer->stop();
@@ -888,6 +894,8 @@ void Game::handlePauseButton()
 
 void Game::handleQuitButton()
 {
+    sounds->buttonClick();
+
     QMessageBox* confirmQuit = new QMessageBox;
     confirmQuit->setWindowFlags(Qt::CustomizeWindowHint);
     confirmQuit->setText("Are you sure you would like to quit?");
@@ -901,6 +909,8 @@ void Game::handleQuitButton()
 
     if (confirmQuit->clickedButton() == cancel)
     {
+        sounds->buttonClick();
+
         delete confirmQuit;
     }
     else
@@ -909,6 +919,8 @@ void Game::handleQuitButton()
 
 void Game::handleHelpButton()
 {
+    sounds->buttonClick();
+
     QMessageBox* helpWindow = new QMessageBox;
     helpWindow->setWindowFlags(Qt::CustomizeWindowHint);
     //////////////////////////////////////////////////////////
@@ -943,15 +955,27 @@ void Game::showPauseMenu()
     menu->exec();
     if (menu->clickedButton() == resume)
     {
+        sounds->buttonClick();
+
         handlePauseButton(); //will resume
         delete menu;
     }
     if (menu->clickedButton() == sound)
+    {
+        sounds->buttonClick();
+
         handleSoundSettingsButton();
+    }
     if (menu->clickedButton() == help)
+    {
+        sounds->buttonClick();
+
         handleHelpButton();
+    }
     if (menu->clickedButton() == leave)
     {
+        sounds->buttonClick();
+
         QMessageBox* confirmLeave = new QMessageBox;
         confirmLeave->setWindowFlags(Qt::CustomizeWindowHint);
         confirmLeave->setText("Are you sure you would like to return to main menu?\nYour progress in this level will not be saved");
@@ -965,6 +989,8 @@ void Game::showPauseMenu()
 
         if (confirmLeave->clickedButton() == yes)
         {
+            sounds->buttonClick();
+
             foreach (QGraphicsItem* items, scene->items())
             {
                 //clear clan design
@@ -978,6 +1004,8 @@ void Game::showPauseMenu()
         }
         else
         {
+            sounds->buttonClick();
+
             showPauseMenu();
             delete confirmLeave;
         }

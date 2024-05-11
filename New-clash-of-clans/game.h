@@ -128,6 +128,8 @@ private:
     QPixmap imageCannon;
     QPixmap imageTownhall;
 
+    Audio* sounds;
+
     //FUNCTIONS
     void startLevel();
     void displayClanDesign();

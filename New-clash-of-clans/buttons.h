@@ -5,6 +5,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QObject>
+#include <QAudioOutput>
+#include <QMediaPlayer>
+#include <QSoundEffect>
 
 class pauseButton : public QPushButton
 {
@@ -17,6 +20,29 @@ class startMenuButtons : public QPushButton
 {
 public:
     startMenuButtons(QString text);
+};
+
+class Audio
+{
+    QSoundEffect* buttonSound;
+    QSoundEffect* win;
+    QSoundEffect* lose;
+    QSoundEffect* bullet;
+    QSoundEffect* enemyHit;
+    QSoundEffect* booster;
+
+
+public:
+    Audio();
+    void buttonClick();
+    void winSound();
+    void loseSound();
+    void bulletSound();
+    void enemyHitSound();
+    void boosterSound();
+    void setVolumes(qreal volume);
+
+
 };
 
 #endif // BUTTONS_H

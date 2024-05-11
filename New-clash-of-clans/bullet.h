@@ -1,6 +1,8 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include "buttons.h"
+
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 #include <QObject>
@@ -22,6 +24,7 @@ private:
     qreal directionX;
     qreal directionY;
     qreal mouseX,  mouseY,  cannonX,  cannonY;
+    Audio* sounds;
     void checkCollisions();
 };
 

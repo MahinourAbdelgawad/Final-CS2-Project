@@ -23,6 +23,7 @@ Bullet::Bullet(qreal mouseX, qreal mouseY, qreal cannonX, qreal cannonY)
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(move())); //timer to move bullet
     timer->start(30);
+    sounds = new Audio;
 }
 
 void Bullet::setDirection(qreal x, qreal y)
@@ -61,6 +62,7 @@ void Bullet::checkCollisions()
     {
         if (typeid(*item) == typeid(Booster))
         {
+            sounds->boosterSound();
             Booster* booster = dynamic_cast<Booster*>(item);
             booster->Boost();
         }

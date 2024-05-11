@@ -43,3 +43,5 @@ void Cannon::setPix(QPixmap image){
     this->setPixmap(image);
 }
 
+
+

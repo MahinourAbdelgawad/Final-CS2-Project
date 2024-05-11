@@ -61,7 +61,7 @@ void Workers::move()
     // if they fixed their fence --> go back to townhall
 
 
-    if (targetFence->destroyed || targetFence->fenceHealth->getHealth() == targetFence->fenceHealth->getMaxHealth())
+    if (targetFence->destroyed || targetFence->fenceHealth->getHealth() >= targetFence->fenceHealth->getMaxHealth())
     {
         qDebug() << "here";
         workerTimer->stop();
