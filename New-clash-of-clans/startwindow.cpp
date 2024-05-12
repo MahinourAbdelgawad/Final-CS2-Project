@@ -4,7 +4,7 @@
 #include <QPalette>
 #include <QProgressBar>
 #include <QTimer>
-#include <start.h>
+#include "startwindow.h"
 startwindow::startwindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::startwindow)

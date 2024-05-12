@@ -30,7 +30,7 @@ Audio::Audio()
     lose->setVolume(20);
 
     bullet = new QSoundEffect;
-    bullet->setSource(QUrl(":/../../../Voicy_Cannon fire - Clash of Clans.mp3"));
+    bullet->setSource(QUrl("qrc:/Sound files/bullet.wav"));
     bullet->setVolume(10);
 
     enemyHit = new QSoundEffect;
@@ -42,21 +42,18 @@ Audio::Audio()
     booster->setVolume(5);
 
     moneySound1=new QSoundEffect;
-    moneySound1->setSource(QUrl(":/../../../Voicy_Coins collect - Clash of Clans.mp3"));
+    moneySound1->setSource(QUrl(":/Sound files/money.mp3"));
     moneySound1->setVolume(5);
-
-
-
-}
-
-void Audio::moneySound()
-{
-    moneySound1->play();
 }
 
 void Audio::buttonClick()
 {
     buttonSound->play();
+}
+
+void Audio::moneySound()
+{
+    moneySound1->play();
 }
 
 void Audio::winSound()

@@ -94,6 +94,12 @@ void Shop1::on_townHall_clicked()
 
 
 
+void Shop1::onUpgradeApplied(const QPixmap& newImage, int newHealth)
+{
+    // Handle the upgrade applied signal from Cannon or Fence
+    // Update the UI or perform any other necessary actions
+}
+
 
 
 int Shop1::sendMoney(){
@@ -140,7 +146,7 @@ void Shop1::on_cannon_clicked()
             QPixmap newImage(":/images/Cannon10B.png");
             newImage = newImage.scaledToWidth(80);
             newImage = newImage.scaledToHeight(80);
-            int newHealth = 0;
+            int newHealth = 2000;
             emit moneyChanged(newMoney);
 
             type="Cannon";

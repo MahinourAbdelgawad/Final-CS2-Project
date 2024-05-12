@@ -101,8 +101,9 @@ Game::Game(QWidget *parent) : QWidget(parent)
     moneyLabel->hide();
 
     backgroundMusicPlayer.setAudioOutput(&audiooutput);
-    backgroundMusicPlayer.setSource(QUrl(":/../../../26. Combat Music.mp3"));
+    backgroundMusicPlayer.setSource(QUrl("/Users/mac/Final-CS2-Project/New-clash-of-clans/Sound\ files/background\ music.mp3"));
     backgroundMusicPlayer.play();
+
 
 
    // backgroundMusicPlayer->setVolume(50);
@@ -137,7 +138,6 @@ void Game::updateimagehealth(QString type, QPixmap image, int health2)
     // imageFence=image;
     if(type == "Fence"){
         imageFence=image;
-        fence->fenceHealth->setMaxHealth(health2);
     }
     else if(type == "Cannon"){
         imageCannon=image;
@@ -450,7 +450,8 @@ QVector<QPair<int, int>> Game::findshortestPath(QPair<int,int> troopPosition) //
 
     while (!queue.empty()) //BFS
     {
-        QPair current = queue.front();
+        QPair<int,int>
+            current = queue.front();
         queue.pop_front();
 
         int i = current.first;

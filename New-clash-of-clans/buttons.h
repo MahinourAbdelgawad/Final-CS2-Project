@@ -35,7 +35,6 @@ class Audio
 
 public:
     Audio();
-    void moneySound();
     void buttonClick();
     void winSound();
     void loseSound();
@@ -43,6 +42,7 @@ public:
     void enemyHitSound();
     void boosterSound();
     void setVolumes(qreal volume);
+    void moneySound();
 
 
 };
