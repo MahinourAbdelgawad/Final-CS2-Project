@@ -101,7 +101,7 @@ Game::Game(QWidget *parent) : QWidget(parent)
     moneyLabel->hide();
 
     backgroundMusicPlayer.setAudioOutput(&audiooutput);
-    backgroundMusicPlayer.setSource(QUrl("/Users/mac/Final-CS2-Project/New-clash-of-clans/Sound\ files/background\ music.mp3"));
+    backgroundMusicPlayer.setSource(QUrl(":/../../Downloads/26. Combat Music.mp3"));
     backgroundMusicPlayer.play();
 
 
