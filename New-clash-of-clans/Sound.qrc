@@ -7,5 +7,8 @@
         <file>Sound files/bullet.wav</file>
         <file>Sound files/enemyHit.wav</file>
         <file>Sound files/booster.wav</file>
+        <file>../../../Voicy_Cannon fire - Clash of Clans.mp3</file>
+        <file>../../../Voicy_Coins collect - Clash of Clans.mp3</file>
+        <file>../../../26. Combat Music.mp3</file>
     </qresource>
 </RCC>

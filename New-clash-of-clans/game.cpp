@@ -101,7 +101,7 @@ Game::Game(QWidget *parent) : QWidget(parent)
     moneyLabel->hide();
 
     backgroundMusicPlayer.setAudioOutput(&audiooutput);
-    backgroundMusicPlayer.setSource(QUrl("qrc:/Sound files/fm-freemusic-inspiring-optimistic-upbeat-energetic-guitar-rhythm(chosic.com).mp3"));
+    backgroundMusicPlayer.setSource(QUrl(":/../../../26. Combat Music.mp3"));
     backgroundMusicPlayer.play();
 
 
@@ -137,6 +137,7 @@ void Game::updateimagehealth(QString type, QPixmap image, int health2)
     // imageFence=image;
     if(type == "Fence"){
         imageFence=image;
+        fence->fenceHealth->setMaxHealth(health2);
     }
     else if(type == "Cannon"){
         imageCannon=image;
@@ -709,6 +710,7 @@ void Game::updateTimer()
         money->setMoney(moneyupdated);
         moneyLabel->setText(QString::number(moneyupdated));
         moneyBar->setValue(moneyupdated);
+        sounds->moneySound();
         foreach (QGraphicsItem* items, scene->items())
         {
             //clear clan design to prepare for next level

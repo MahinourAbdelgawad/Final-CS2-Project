@@ -38,7 +38,7 @@ private slots:
 
     // void on_cannon_clicked(const QPixmap& newImage, int newHealth);
 
-    void onUpgradeApplied(const QPixmap& newImage, int newHealth);
+
     void on_fence_clicked();
 
     void on_cannon_clicked();

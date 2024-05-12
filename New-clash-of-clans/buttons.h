@@ -30,10 +30,12 @@ class Audio
     QSoundEffect* bullet;
     QSoundEffect* enemyHit;
     QSoundEffect* booster;
+    QSoundEffect* moneySound1;
 
 
 public:
     Audio();
+    void moneySound();
     void buttonClick();
     void winSound();
     void loseSound();
