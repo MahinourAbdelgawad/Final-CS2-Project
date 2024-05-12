@@ -899,7 +899,7 @@ void Game::handleQuitButton()
     QMessageBox* confirmQuit = new QMessageBox;
     confirmQuit->setWindowFlags(Qt::CustomizeWindowHint);
     confirmQuit->setText("Are you sure you would like to quit?");
-    confirmQuit->setStyleSheet("background-color: rgb(237, 230, 180); color: black;");
+    confirmQuit->setStyleSheet("background-color: rgb(42, 44, 62); color: white;");
 
     QPushButton* cancel = new QPushButton("Cancel");
     confirmQuit->addButton(cancel, QMessageBox::ActionRole);
@@ -924,8 +924,16 @@ void Game::handleHelpButton()
     QMessageBox* helpWindow = new QMessageBox;
     helpWindow->setWindowFlags(Qt::CustomizeWindowHint);
     //////////////////////////////////////////////////////////
-    helpWindow->setText("(add instructions on how to play)");
-    helpWindow->setStyleSheet("background-color: rgb(237, 230, 180); color: black;");
+    helpWindow->setText("Your base is under attack!\n\n"
+                        "Game Objective: Protect your town hall from enemy troops.\n\n"
+                        "-Shoot and kill enemy troops by left-clicking.\n\n"
+                        "-You have five citizen workers defending your base by repairing fences.\n\n"
+                        "-The game is over when enemy troops destroy your town hall and you lose,\n\n"
+                        "-Or when the time is up with your town hall still standing and you win.\n\n"
+                        "-Power boosters spawn randomly, try to catch them to boost your cannon power for 30 seconds!\n\n"
+                        "-Once you have enough money, head on over to the shop for some upgrades\n\n"
+                        "-Good luck!");
+    helpWindow->setStyleSheet("background-color: rgb(42, 44, 62); color: white;");
 
     QPushButton* OK = new QPushButton("OK");
     helpWindow->addButton(OK, QMessageBox::RejectRole);
@@ -942,7 +950,7 @@ void Game::showPauseMenu()
     QMessageBox* menu = new QMessageBox;
     menu->setWindowFlags(Qt::CustomizeWindowHint);
     menu->setText("Game Options");
-    menu->setStyleSheet("background-color: rgb(237, 230, 180); color: black;");
+    menu->setStyleSheet("background-color: rgb(42, 44, 62); color: white;");
 
     QPushButton* resume = new QPushButton("Resume");
     menu->addButton(resume, QMessageBox::ActionRole);
@@ -979,7 +987,7 @@ void Game::showPauseMenu()
         QMessageBox* confirmLeave = new QMessageBox;
         confirmLeave->setWindowFlags(Qt::CustomizeWindowHint);
         confirmLeave->setText("Are you sure you would like to return to main menu?\nYour progress in this level will not be saved");
-        confirmLeave->setStyleSheet("background-color: rgb(237, 230, 180); color: black;");
+        confirmLeave->setStyleSheet("background-color: rgb(42, 44, 62); color: white;");
 
         QPushButton* cancel = new QPushButton("Cancel");
         confirmLeave->addButton(cancel, QMessageBox::RejectRole);

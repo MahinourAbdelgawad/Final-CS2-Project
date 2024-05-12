@@ -11,7 +11,7 @@ startwindow::startwindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap backgroundImage("C:/Users/HP/Downloads/free-photo-black-grunge-abstract-background-pattern-wallpaper.jpg");
+    QPixmap backgroundImage(":/images/startbg.jpg");
     QLabel *backgroundLabel = new QLabel(this);
     backgroundLabel->setPixmap(backgroundImage);
     backgroundLabel->lower();
@@ -21,7 +21,7 @@ startwindow::startwindow(QWidget *parent)
     ui->progressBar->setGeometry(98, 130, 200, 25);
     ui->progressBar->setStyleSheet("QProgressBar { border: 2px solid orange; background-color: black; text-align: center; }"
                                    "QProgressBar::chunk { background-color: orange; }"
-                                   "QProgressBar::chunk::text { color: transparent; }"); // Hide the percentage text
+                                   "QProgressBar::chunk::text { color: transparent; }");
     ui->progressBar->setRange(0, 100);
 
 
@@ -61,8 +61,6 @@ void startwindow::updateProgressBar()
         sender()->deleteLater();
         ui->progressBar->hide();
 
-        // Start* start = new Start();
-        // start->show();
         Game* game = new Game();
         game->show();
         this->hide();

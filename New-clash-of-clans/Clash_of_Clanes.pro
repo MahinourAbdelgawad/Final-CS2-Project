@@ -20,9 +20,7 @@ SOURCES += \
     main.cpp \
     game.cpp \
     playermoney.cpp \
-    shop.cpp \
     shop1.cpp \
-    start.cpp \
     startwindow.cpp \
     townhall.cpp \
     troop.cpp \
@@ -38,9 +36,7 @@ HEADERS += \
     health.h \
     levels.h \
     playermoney.h \
-    shop.h \
     shop1.h \
-    start.h \
     startwindow.h \
     townhall.h \
     troop.h \
@@ -48,7 +44,6 @@ HEADERS += \
 
 FORMS += \
     shop1.ui \
-    start.ui \
     startwindow.ui
 
 # Default rules for deployment.

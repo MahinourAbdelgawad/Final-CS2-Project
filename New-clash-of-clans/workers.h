@@ -23,23 +23,15 @@ public:
     void setFence(Fence1* fence);
     Fence1* targetFence;
     QTimer* workerTimer;
-    Townhall* home;
-    bool repaired();
-    bool backHome=false;
-// signals:
-//     void fenceRepaired(Fence1* fence);
+
+
 
 public slots:
     void dance();
 
 private:
-    // bool isDestroyed;
-    // void hideWorker();
-    // void showWorker();
-    void checkCollisions();
 
-    bool isBeingRepaired();
-    bool FenceAttacked();
+
     void fixFence();
     QTimer* danceTimer;
     QTimer* dTimer;
