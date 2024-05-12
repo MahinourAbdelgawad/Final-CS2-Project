@@ -4,7 +4,8 @@ Townhall::Townhall( )
 {
     townhallHealth = new Health(healthValue);
     //health->setMaxHealth(10);
-    QPixmap pixmap(":/images/Castle.png");
+    // QPixmap pixmap(":/images/Castle.png");
+    QPixmap pixmap(":/images/cake1.png");
     pixmap = pixmap.scaledToWidth(50);
     pixmap = pixmap.scaledToHeight(50);
     this->setPixmap(pixmap);

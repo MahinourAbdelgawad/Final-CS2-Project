@@ -11,7 +11,7 @@ class Troop : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 
 public:
-    Troop(qreal health, qreal power);
+    Troop(qreal health, qreal power, int level);
     bool remove;
     void stop();
     qreal speed;

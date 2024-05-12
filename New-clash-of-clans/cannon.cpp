@@ -10,9 +10,9 @@
 
 Cannon::Cannon()
 {
-   QPixmap pixmap(":/images/Cannon.png");
-   pixmap = pixmap.scaledToWidth(100);
-   pixmap = pixmap.scaledToHeight(100);
+   QPixmap pixmap(":/images/human.png");
+   pixmap = pixmap.scaledToWidth(40);
+   pixmap = pixmap.scaledToHeight(70);
    this->setPixmap(pixmap);
    // cannonHealth= new Health();
 

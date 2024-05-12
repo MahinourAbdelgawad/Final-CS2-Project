@@ -18,12 +18,47 @@
 #include <QRandomGenerator>
 #include<QObject>
 
-Troop::Troop(qreal health, qreal power) {
+Troop::Troop(qreal health, qreal power, int level) {
 
-    QPixmap picture(":/images/Barbarian1.png");
-    picture = picture.scaledToHeight(40);
-    picture = picture.scaledToWidth(40);
-    this->setPixmap(picture);
+    // QPixmap picture(":/images/Barbarian1.png");
+
+
+    if (level == 1)
+    {
+        QPixmap picture(":/images/level1fly.png");
+        picture = picture.scaledToHeight(40);
+        picture = picture.scaledToWidth(40);
+        this->setPixmap(picture);
+    }
+    else if (level == 2)
+    {
+        QPixmap picture(":/images/level2ant.png");
+        picture = picture.scaledToHeight(40);
+        picture = picture.scaledToWidth(40);
+        this->setPixmap(picture);
+    }
+    else if (level == 3)
+    {
+        QPixmap picture(":/images/level3grass.png");
+        picture = picture.scaledToHeight(40);
+        picture = picture.scaledToWidth(40);
+        this->setPixmap(picture);
+    }
+    else if (level == 4)
+    {
+        QPixmap picture(":/images/level4roach.png");
+        picture = picture.scaledToHeight(30);
+        picture = picture.scaledToWidth(30);
+        this->setPixmap(picture);
+    }
+    else
+    {
+        QPixmap picture(":/images/level5rat.png");
+        picture = picture.scaledToHeight(30);
+        picture = picture.scaledToWidth(30);
+        this->setPixmap(picture);
+    }
+
     remove=false;
     speed = 1.0;
     troopHealth = new Health(health);

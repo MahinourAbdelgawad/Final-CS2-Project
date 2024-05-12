@@ -15,5 +15,16 @@
         <file>images/Wall3.png</file>
         <file>images/Cannon10B.png</file>
         <file>images/startbg.jpg</file>
+        <file>images/bg.jpg</file>
+        <file>images/cake1.png</file>
+        <file>images/cake2.png</file>
+        <file>images/human.png</file>
+        <file>images/level1fly.png</file>
+        <file>images/level2ant.png</file>
+        <file>images/level3grass.png</file>
+        <file>images/level4roach.png</file>
+        <file>images/level5rat.png</file>
+        <file>images/slipper.png</file>
+        <file>images/woman2.png</file>
     </qresource>
 </RCC>

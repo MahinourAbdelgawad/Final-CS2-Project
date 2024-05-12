@@ -19,13 +19,13 @@ Shop1::Shop1(QWidget *parent, int money1) : QDialog(parent), ui(new Ui::Shop1)
     backgroundLabel->setPixmap(backgroundImage);
     backgroundLabel->lower();
     backgroundLabel->setGeometry(0, 0, width(), height());
-    QPixmap cannonImage(":/images/Cannon.png");
-    QPixmap townhallImage(":/images/Castle.png");
+    QPixmap cannonImage(":/images/human.png");
+    QPixmap townhallImage(":/images/cake1.png");
     QPixmap fenceImage(":/images/Wall.png");
     townhallImage = townhallImage.scaledToWidth(50);
     townhallImage = townhallImage.scaledToHeight(50);
 
-    QString backgroundImage1 = ":/images/Cannon.png";
+    QString backgroundImage1 = ":/images/human.png";
     QString buttonStyle = "QPushButton {"
                           "    background-image: url(" + backgroundImage1 + ");"
                                                "    background-repeat: no-repeat;"
@@ -35,8 +35,8 @@ Shop1::Shop1(QWidget *parent, int money1) : QDialog(parent), ui(new Ui::Shop1)
     ui->cannonbutton->setStyleSheet(buttonStyle);
     QSize buttonSize = ui->town->size();
     QPixmap scaledTownhallImage = townhallImage.scaled(buttonSize, Qt::KeepAspectRatio);
-    QString backgroundImage2 =":/images/Castle.png";
-    ":/images/Castle.png";
+    QString backgroundImage2 =":/images/cake1.png";
+    ":/images/cake1.png";
     scaledTownhallImage.save(backgroundImage2);
 
     QString buttonStyle2 = "QPushButton {"
@@ -78,7 +78,7 @@ void Shop1::on_townHall_clicked()
         if (reply == QMessageBox::Yes) {
             money->setMoney(newMoney);
             type="Townhall";
-            QPixmap newImage(":/images/Town_Hall9.png");
+            QPixmap newImage(":/images/cake2.png");
             newImage = newImage.scaledToWidth(50);
             newImage = newImage.scaledToHeight(50);
             int newHealth = 2000;
@@ -143,7 +143,7 @@ void Shop1::on_cannon_clicked()
         if (reply == QMessageBox::Yes) {
             money->setMoney(newMoney);
 
-            QPixmap newImage(":/images/Cannon10B.png");
+            QPixmap newImage(":/images/woman2.png");
             newImage = newImage.scaledToWidth(80);
             newImage = newImage.scaledToHeight(80);
             int newHealth = 2000;

@@ -19,7 +19,7 @@ Game::Game(QWidget *parent) : QWidget(parent)
     setLayout(layout);
 
     //setting background
-    QPixmap backgroundPixmap(":/images/Background.png"); //background image is empty field
+    QPixmap backgroundPixmap(":/images/bg.jpg"); //background image is empty field
     if (!backgroundPixmap.isNull())
     {
         view->setBackgroundBrush(backgroundPixmap);
@@ -101,16 +101,12 @@ Game::Game(QWidget *parent) : QWidget(parent)
     moneyLabel->hide();
 
     backgroundMusicPlayer.setAudioOutput(&audiooutput);
-    backgroundMusicPlayer.setSource(QUrl(":/../../Downloads/26. Combat Music.mp3"));
+    backgroundMusicPlayer.setSource(QUrl("qrc:/Sound files/background music.mp3"));
     backgroundMusicPlayer.play();
 
-
-
-   // backgroundMusicPlayer->setVolume(50);
-
-    bulletSoundEffect = new QSoundEffect();
-    bulletSoundEffect->setSource(QUrl("qrc:/sounds/bullet_sound.wav"));
-    bulletSoundEffect->setVolume(50);
+    // bulletSoundEffect = new QSoundEffect();
+    // bulletSoundEffect->setSource(QUrl("qrc:/sounds/bullet_sound.wav"));
+    // bulletSoundEffect->setVolume(50);
 
     sounds = new Audio;
 
@@ -135,7 +131,6 @@ void Game::updateMoney(int newMoney)
 void Game::updateimagehealth(QString type, QPixmap image, int health2)
 {
 
-    // imageFence=image;
     if(type == "Fence"){
         imageFence=image;
     }
@@ -368,7 +363,7 @@ void Game::formTroops()
     } while (clanDesign[randomY][randomX] != 0); //keeps generating until position is a 0
 
     qDebug() << "randomX: " << randomX << " randomY: " << randomY;
-    Troop* troop = new Troop(level->currLevel * 300, level->currLevel * 100);
+    Troop* troop = new Troop(level->currLevel * 300, level->currLevel * 100, level->currLevel);
     scene->addItem(troop);
     troop->setPos(randomX * 50, randomY * 50);
     troop->currGridPosition.first = randomY; troop->currGridPosition.second = randomX;
@@ -550,16 +545,16 @@ void Game::checkCollisions(Troop* troop)
                   if (qAbs(dx) > qAbs(dy))//move left or right
                 {
                     if (dx < 0) //move left
-                        troop->setPos(townhall->x()-80, townhall->y());
+                        troop->setPos(townhall->x()-60, townhall->y());
                     else //move right
-                        troop->setPos(townhall->x()+80, townhall->y());
+                        troop->setPos(townhall->x()+60, townhall->y());
                 }
                 else //move up or down
                 {
                     if (dy < 0) //move up
-                        troop->setPos(townhall->x(), townhall->y()-80);
+                        troop->setPos(townhall->x(), townhall->y()-60);
                     else //move down
-                        troop->setPos(townhall->x(), townhall->y()+80);
+                        troop->setPos(townhall->x(), townhall->y()+60);
                 }
 
                 if ( townhall && typeid(*collidingItem) == typeid(Townhall))
@@ -679,7 +674,7 @@ void Game::updateTimer()
     currentTime = currentTime.addSecs(1);
     timerText->setPlainText(currentTime.toString("m:ss"));
 
-    if (currentTime.minute() == 10 )
+    if (currentTime.second() == 10 )
     {
         sounds->winSound();
 
@@ -704,7 +699,19 @@ void Game::updateTimer()
 
             }
         }
-        QMessageBox::information(this, "Player wins!", "Level " + QString::number(level->currLevel) + " completed succesfully!"); //!!HANDLE THE BUTTONS
+        QMessageBox::information(this, "Player wins!", "Level " + QString::number(level->currLevel) + " completed succesfully!");
+        if (level->currLevel == 5)
+        {
+            QMessageBox* endGame = new QMessageBox;
+            endGame->setWindowFlags(Qt::CustomizeWindowHint);
+            endGame->setText("Congratulations!\nYou have completed all five levels\nand successfully protected your cake from the pests!");
+            endGame->setStyleSheet("background-color: rgb(42, 44, 62); color: white;");
+            QPushButton* quit = new QPushButton("Exit Game");
+            endGame->addButton(quit, QMessageBox::ActionRole);
+            endGame->exec();
+            if (endGame->clickedButton() == quit)
+                QCoreApplication::quit();
+        }
         level->nextLevel(); //increment current level
 
         moneyupdated = money->currentMoney + 100;
@@ -797,7 +804,7 @@ void Game::mousePressEvent(QMouseEvent *event) //release bullet when player clic
         Bullet *bullet = new Bullet(targetPos.x(), targetPos.y(), cannon->pos().x() , cannon->pos().y());
         bullet->setDirection(directionX, directionY);
 
-        bullet->setPos(cannon->pos().x() + 50, cannon->pos().y() + 50); //bullet comes out of cannon
+        bullet->setPos(cannon->pos().x(), cannon->pos().y()); //bullet comes out of cannon
 
         scene->addItem(bullet);
 

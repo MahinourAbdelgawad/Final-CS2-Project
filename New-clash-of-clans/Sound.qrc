@@ -9,6 +9,5 @@
         <file>Sound files/booster.wav</file>
         <file>Sound files/money.mp3</file>
         <file>Sound files/background music.mp3</file>
-        <file>../../Downloads/26. Combat Music.mp3</file>
     </qresource>
 </RCC>

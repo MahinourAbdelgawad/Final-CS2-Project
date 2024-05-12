@@ -14,11 +14,11 @@ Bullet::Bullet(qreal mouseX, qreal mouseY, qreal cannonX, qreal cannonY)
     this->cannonX = cannonX;
     this->cannonY = cannonY;
 
-    QPixmap pixmap1(":/images/cannonball.png");
-    pixmap1 = pixmap1.scaledToWidth(20);
-    pixmap1 = pixmap1.scaledToHeight(20);
+    QPixmap pixmap1(":/images/slipper.png");
+    pixmap1 = pixmap1.scaledToWidth(30);
+    pixmap1 = pixmap1.scaledToHeight(30);
     setPixmap(pixmap1);
-    speed = 5;
+    speed = 10;
 
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(move())); //timer to move bullet
